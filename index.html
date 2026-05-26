@@ -548,8 +548,8 @@ function renderFortune(animateMetrics=true){
   const customDont=LS.get('customDont','').split(/[,，]/).filter(Boolean);
   const allDo=[...data.dos,...customDo];
   const allDont=[...data.donts,...customDont];
-  const dos=shuffle(r,allDo).slice(0,2);
-  const donts=shuffle(r,allDont).slice(0,2);
+  const dos=[...allDo].sort(()=>Math.random()-.5).slice(0,2);
+  const donts=[...allDont].sort(()=>Math.random()-.5).slice(0,2);
 
   currentScore=score;
   currentFortuneText=f[0];
