@@ -42,6 +42,12 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
 }
 .header .subtitle{color:rgba(255,255,255,.45);font-size:12px;letter-spacing:3px}
 .header .date{color:rgba(255,255,255,.35);font-size:11px;margin-top:2px}
+.persona{
+  display:inline-block;margin-top:6px;padding:4px 12px;border-radius:12px;
+  background:rgba(255,175,25,.1);border:1px solid rgba(255,175,25,.2);
+  color:#f5af19;font-size:12px;letter-spacing:1px;transition:all .3s
+}
+.persona.poison-mode{background:rgba(255,8,68,.1);border-color:rgba(255,8,68,.2);color:#ff6b81}
 
 /* Tab bar */
 .tab-bar{display:flex;gap:4px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
@@ -51,6 +57,11 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
   cursor:pointer;transition:all .25s;font-family:inherit;white-space:nowrap
 }
 .tab-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.poison-toggle{font-size:13px}
+.poison-toggle.active{
+  background:linear-gradient(135deg,rgba(255,8,68,.35),rgba(180,0,30,.3));
+  border-color:rgba(255,100,120,.4);color:#ff6b81;box-shadow:0 0 18px rgba(255,8,68,.25)
+}
 .tab-btn.active{
   background:linear-gradient(135deg,rgba(123,47,247,.4),rgba(255,8,68,.3));
   border-color:rgba(180,130,255,.4);color:#fff;box-shadow:0 0 20px rgba(123,47,247,.25)
@@ -89,6 +100,10 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
 .score-ring::before{content:'';position:absolute;top:5px;left:5px;right:5px;bottom:5px;border-radius:50%;background:#1a1040}
 .score-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:22px;font-weight:900;color:#f5af19}
 .score-label{color:rgba(255,255,255,.35);font-size:11px;margin-top:6px}
+.weather{font-size:14px;margin-top:4px;letter-spacing:1px}
+.roast-quote{font-size:11px;color:rgba(255,255,255,.25);font-style:italic;margin-bottom:18px;min-height:16px}
+.lucky-char{width:36px;height:36px;border-radius:50%;background:rgba(255,175,25,.12);border:2px solid rgba(255,175,25,.3);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#f5af19;margin:0 auto 2px}
+.lucky-char-mean{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px}
 
 /* Lucky row */
 .lucky-row{display:flex;justify-content:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
@@ -135,6 +150,68 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
 .btn-secondary:hover{background:rgba(255,255,255,.12);color:#fff}
 .btn-poster{background:linear-gradient(135deg,#f5af19,#f12711);color:#fff;box-shadow:0 5px 20px rgba(245,175,25,.3)}
 .btn-poster:hover{transform:translateY(-1px);box-shadow:0 7px 26px rgba(245,175,25,.45)}
+
+/* Card rarity badge */
+.card-rarity-badge{
+  position:absolute;top:14px;right:16px;padding:4px 10px;border-radius:10px;
+  font-size:11px;font-weight:900;letter-spacing:1px;opacity:0;transform:scale(.8);
+  transition:all .4s cubic-bezier(.175,.885,.32,1.275)
+}
+.card-rarity-badge.show{opacity:1;transform:scale(1)}
+.card{position:relative}
+
+/* Ask box */
+.ask-box{margin-bottom:18px}
+.ask-input{
+  width:100%;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);color:#fff;font-size:13px;font-family:inherit;
+  outline:none;transition:all .3s
+}
+.ask-input:focus{border-color:rgba(180,130,255,.4);box-shadow:0 0 16px rgba(123,47,247,.15)}
+.ask-input::placeholder{color:rgba(255,255,255,.2)}
+.ask-answer{font-size:12px;color:rgba(180,130,255,.7);margin-top:6px;min-height:0;transition:all .4s;text-align:center;letter-spacing:1px}
+
+/* Challenge */
+.challenge-box{
+  display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;
+  background:rgba(245,175,25,.06);border:1px solid rgba(245,175,25,.12);
+  margin-bottom:20px;font-size:13px;color:#f5af19;flex-wrap:wrap;justify-content:center
+}
+.challenge-done{
+  padding:4px 10px;border-radius:8px;border:1px solid rgba(46,204,113,.3);
+  background:rgba(46,204,113,.1);color:#2ecc71;font-size:11px;cursor:pointer;
+  font-family:inherit;transition:all .2s
+}
+.challenge-done:hover{background:rgba(46,204,113,.2)}
+.challenge-done.done{background:rgba(46,204,113,.2);border-color:rgba(46,204,113,.5);color:#fff}
+
+/* Accuracy vote */
+.accuracy-vote{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.vote-label{color:rgba(255,255,255,.3);font-size:11px}
+.vote-btn{
+  padding:5px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);font-size:12px;
+  cursor:pointer;transition:all .2s;font-family:inherit
+}
+.vote-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+.vote-btn.voted{background:rgba(123,47,247,.2);border-color:rgba(180,130,255,.3);color:#c084fc}
+.vote-stats{font-size:10px;color:rgba(255,255,255,.25)}
+
+/* Card gallery */
+.collection-stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.cstat{padding:6px 12px;border-radius:8px;background:rgba(255,255,255,.04);font-size:11px;color:rgba(255,255,255,.5)}
+.cstat b{color:#f5af19}
+.card-gallery{display:flex;gap:6px;flex-wrap:wrap;max-height:200px;overflow-y:auto}
+.gallery-card{
+  width:52px;height:52px;border-radius:8px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-size:10px;cursor:pointer;
+  transition:all .2s;position:relative
+}
+.gallery-card:hover{transform:scale(1.08)}
+.gallery-card .gc-icon{font-size:20px}
+.gallery-card .gc-rarity{font-size:8px;font-weight:900;margin-top:1px}
+.gallery-card .gc-day{font-size:8px;color:rgba(255,255,255,.35)}
+.gallery-card-tip{font-size:10px;color:rgba(255,255,255,.2);text-align:center;padding:20px;width:100%}
 
 /* Toast */
 .toast{
@@ -223,6 +300,7 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
     <span class="crystal" id="crystalBall" title="点我抽签">🔮</span>
     <h1>今日运势</h1>
     <div class="subtitle">科 学 算 命 · 有 理 有 据</div>
+    <div class="persona" id="personaTag"></div>
     <div class="date" id="dateDisplay"></div>
   </div>
 
@@ -231,33 +309,52 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
     <button class="tab-btn" data-tab="tarot">🎴 塔罗牌</button>
     <button class="tab-btn" data-tab="leaderboard">🏆 排行榜</button>
     <button class="tab-btn" data-tab="profile">⚙️ 我的</button>
+    <button class="tab-btn poison-toggle" id="poisonToggle" title="切换毒鸡汤模式">💀 毒鸡汤</button>
   </div>
 
   <!-- Fortune Tab -->
   <div class="tab-panel active" id="tab-fortune">
     <div class="card" id="fortuneCard">
+      <div class="card-rarity-badge" id="rarityBadge"></div>
+      <div class="ask-box">
+        <input class="ask-input" id="askInput" placeholder="🔮 想问什么？（输入问题后按回车）" maxlength="60">
+        <div class="ask-answer" id="askAnswer"></div>
+      </div>
       <div class="cat-row" id="catRow"></div>
       <span class="fortune-icon" id="fortuneIcon">✨</span>
       <div class="fortune-text" id="fortuneText"></div>
       <div class="fortune-reason" id="fortuneReason"></div>
+      <div class="roast-quote" id="roastQuote"></div>
       <div class="score-section">
         <div class="score-ring" id="scoreRing"><div class="score-inner" id="scoreNum"></div></div>
         <div class="score-label">综合运势指数</div>
+      <div class="weather" id="weatherTag"></div>
       </div>
       <div class="lucky-row">
         <div class="lucky-item"><div class="ll">🎱 幸运数字</div><div class="num-row" id="luckyNums"></div></div>
         <div class="lucky-item"><div class="ll">🎨 幸运色</div><div class="color-dot" id="luckyColor"></div></div>
         <div class="lucky-item"><div class="ll">🧭 幸运方位</div><div class="dir-icon">🧭</div><div class="dir-text" id="luckyDir"></div></div>
+        <div class="lucky-item"><div class="ll">🀄 幸运汉字</div><div class="lucky-char" id="luckyChar"></div><div class="lucky-char-mean" id="luckyCharMean"></div></div>
       </div>
       <div class="dd-row">
         <div class="dd-do"><span class="dd-t">✅ 宜</span><span id="doText"></span></div>
         <div class="dd-dont"><span class="dd-t">❌ 忌</span><span id="dontText"></span></div>
+      </div>
+      <div class="challenge-box" id="challengeBox">
+        <span>🎯 今日挑战：</span><span id="challengeText"></span>
+        <button class="challenge-done" id="challengeDone">✅ 完成</button>
       </div>
       <div class="m-grid" id="mGrid"></div>
       <div class="actions">
         <button class="btn btn-primary" id="btnDraw">✨ 重新算一卦</button>
         <button class="btn btn-poster" id="btnPoster">🖼️ 生成海报</button>
         <button class="btn btn-secondary" id="btnShare">📋 复制文案</button>
+      </div>
+      <div class="accuracy-vote" id="accuracyVote">
+        <span class="vote-label">今日运势</span>
+        <button class="vote-btn" data-vote="up" title="太准了！">👍 准</button>
+        <button class="vote-btn" data-vote="down" title="一点也不准">👎 不准</button>
+        <span class="vote-stats" id="voteStats"></span>
       </div>
     </div>
   </div>
@@ -303,6 +400,11 @@ canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-even
       <div class="profile-section">
         <h3>📜 最近运势</h3>
         <div id="historyList"></div>
+      </div>
+      <div class="profile-section">
+        <h3>🎴 运势卡牌图鉴</h3>
+        <div class="collection-stats" id="collectionStats"></div>
+        <div class="card-gallery" id="cardGallery"></div>
       </div>
       <div class="profile-section">
         <h3>✏️ 自定义宜/忌（用逗号分隔）</h3>
@@ -495,6 +597,171 @@ const FAKE_NAMES = [
   '键盘钢琴家','格子间哲学家','午睡锦标赛金牌','周五下午失踪人口','工资消失术传人'
 ];
 
+// Personas
+const PERSONAS = [
+  {icon:'🎭',name:'职场甄嬛',desc:'今天你是后宫之主，谁都别想害你'},
+  {icon:'🦥',name:'摸鱼哲学家',desc:'摸鱼是一种态度，你的态度很端正'},
+  {icon:'⚔️',name:'PPT最后的武士',desc:'你与PPT之间，只能活一个'},
+  {icon:'🥷',name:'格子间忍者',desc:'开会隐身、甩锅闪避、抢功暴击'},
+  {icon:'🧙',name:'需求翻译官',desc:'能把"我想要五彩斑斓的黑"翻译成人话'},
+  {icon:'🎪',name:'会议驯兽师',desc:'擅长驯服跑题的同事和失控的议程'},
+  {icon:'🦄',name:'独角兽饲养员',desc:'负责维护根本不存在的理想项目'},
+  {icon:'🤹',name:'deadline杂技演员',desc:'在最后一刻完成所有事，优雅且狼狈'},
+  {icon:'🍜',name:'带薪养生大师',desc:'工位八段锦、保温杯泡枸杞、午睡必盖毯'},
+  {icon:'🎯',name:'KPI狙击手',desc:'总能精准命中最低考核线，多一分浪费'},
+  {icon:'🪐',name:'精神离职宇航员',desc:'人在工位，心在火星，肉身靠咖啡维持'},
+  {icon:'🐲',name:'画饼屠龙勇士',desc:'专门斩杀老板画的饼，战绩辉煌'},
+  {icon:'📊',name:'周报文学奖得主',desc:'能把"摸鱼一周"写成史诗级工作汇报'},
+  {icon:'🏴‍☠️',name:'需求海盗',desc:'专门劫持不合理的需求，替开发团队挡刀'},
+  {icon:'🎲',name:'赌神·需求评审版',desc:'每次评审都能精准猜中哪部分会被推翻'},
+];
+
+// Poison chicken soup data
+const POISON_DATA = {
+  general:[
+    ['今天不会暴富，明天也不会，但你的花呗账单会准时到达','生活从来不会辜负每一个欠债的人'],
+    ['你的努力程度远没有达到要拼天赋的地步，所以继续摸鱼吧','天赋：这锅我不背'],
+    ['比你优秀的人还在努力，那你努力还有什么用','反正追不上了，躺平比较舒服'],
+    ['今天又是元气满满的一天呢——这句话是说给老板听的，你别信','真正的你只想回床上躺着'],
+    ['加油，你是最胖的！减肥？明天再说吧','奶茶是液体，不算热量'],
+    ['生活不止眼前的苟且，还有明天的苟且和后天的苟且','远方？不存在的'],
+    ['你今天的运势：跟昨天一样，明天也是','稳定也是一种幸运…大概吧'],
+    ['有人说你是潜力股，意思是你现在不值钱','但万一哪天涨了呢（概率极低）'],
+    ['你的未来一片光明——那是因为屏幕亮度调太高了','调暗一点，面对现实吧'],
+  ],
+  love:[
+    ['单身是一种选择——虽然不是你选的','缘分：在路上了，堵车，预计迟到30年'],
+    ['你的crush今天也在crush别人，双向奔赴但方向不同','你朝TA走，TA朝别人跑'],
+    ['爱情会来的，就像你的快递一样——永远在路上','物流信息已三天没更新'],
+    ['今天表白成功率跟你抢到演唱会门票的概率差不多','建议先练练手速'],
+    ['你不是没人爱，你是手机电量低于20%时才会被记得的人','充上电就又把你忘了'],
+    ['今天的桃花运：0朵。建议不要浪费化妆品/发胶','为空气打扮不值得'],
+    ['你的"最近在干嘛"预计回复时间：平均3.7小时','对方正在输入…然后又删了'],
+    ['暧昧让人受尽委屈，但至少还有暧昧，你连暧昧对象都没有','建议养只猫'],
+  ],
+  career:[
+    ['今天的工作量会超出你的承受能力——但工资不会超出','这就是所谓的"成长机会"'],
+    ['你的方案今天会被打回来3次，第4次会回到第1版','恭喜你白改了3版'],
+    ['今天适合提涨薪——结果我们已经帮你预判了：驳回','理由是"公司今年效益不好"'],
+    ['你今天的生产力巅峰是上午9:05，之后持续下滑','现在已经是谷底了'],
+    ['会议邀请已经送达，预计时长2小时，有效信息量约3分钟','建议带本书进去看'],
+    ['你的代码今天会出现一个bug，修复它会产生2个新bug','这就是传说中的"技术债"'],
+    ['职场晋升的秘诀是：让老板觉得你很忙，而不是真的忙','今天的任务：假装很忙'],
+    ['今天宜摸鱼忌内卷——反正卷了也没加班费','你的工资已经包含了对你的精神补偿'],
+  ],
+  wealth:[
+    ['你的财运在路上了——迷路了，导航也救不了','建议下载离线地图'],
+    ['今天适合投资——投资自己吃顿好的，这是唯一不会亏的','回报率100%（指体重）'],
+    ['中奖概率跟被雷劈差不多，但雷至少会劈到人','今天买彩票的2块钱，还不如买根烤肠'],
+    ['你的理财收益率今天又是负数，但好消息是：你投入的本金也不多','亏也亏不到哪去'],
+    ['今天你可能"省"了一大笔钱——因为根本没有钱可以花','节约是一种被动技能'],
+    ['购物车里的东西涨价了，替你省了一笔——反正你本来也不会买','贫穷是最好的消费降级'],
+    ['今日财神方位：别人的账户。你的账户：水逆中','转账记录全是支出，收入约等于0'],
+    ['你的存款够你活到下个月——下个月3号，不是下个月底','信用卡额度也被你刷满了'],
+  ],
+  health:[
+    ['你的身体年龄比实际年龄大8岁——主要原因是熬夜和奶茶','今天就戒（明天再说）'],
+    ['今天适合体检——但不适合看体检报告','建议做完体检直接扔进碎纸机'],
+    ['你的运动量严重不足，从工位到茶水间的距离是你唯一的运动','建议茶水间多跑两趟'],
+    ['熬夜一时爽，一直熬夜一直爽——直到你照镜子','黑眼圈已经快掉到下巴了'],
+    ['你的BMI指数显示：该减肥了。你的意志力显示：该吃宵夜了','意志力完胜'],
+    ['多喝热水不是敷衍，是对你真实健康状况的精准建议','因为除了这个，你也做不了什么'],
+    ['你的身体在用各种方式抗议久坐——腰痛、颈椎痛、眼睛干','你选择无视，继续工作'],
+    ['今天的最佳运动：手指滑动屏幕。你的手机运动数据远超你的真实步数','步数榜排名第一（在朋友圈）'],
+  ],
+};
+
+// Lucky Chinese characters
+const LUCKY_CHARS=[
+  ['福','福气盈门'],['安','平安顺遂'],['乐','喜乐无忧'],['顺','万事顺意'],
+  ['旺','运势爆棚'],['发','发财致富'],['稳','稳如泰山'],['跃','一跃冲天'],
+  ['吉','吉祥如意'],['胜','旗开得胜'],['达','飞黄腾达'],['喜','喜从天降'],
+  ['瑞','瑞气呈祥'],['康','身心康泰'],['昌','繁荣昌盛'],['泰','否极泰来'],
+  ['运','好运连连'],['兴','兴致勃勃'],['宁','心宁气和'],['成','心想事成'],
+];
+
+// Savage comebacks
+const ROASTS=[
+  '你说的很有道理——但我不听',
+  '请开始你的表演 🍿',
+  '这话你自己信吗',
+  '厉害了，但你工资涨了吗',
+  '好有道理，下次别说了',
+  '你是我见过最会说话的人——之一',
+  '说得很好，建议投稿《意林》',
+  '你的观点很独特，就像独角兽一样——不存在',
+  '有这时间不如多搬两块砖',
+  '你开心就好，我无所谓',
+  '今天也是被你无语到的一天呢',
+  '建议你重新组织一下语言',
+  '你这个想法很大胆，建议继续保留为想法',
+];
+
+// Daily challenges by category
+const CHALLENGES={
+  general:[
+    '对镜子说三遍"今天我最棒"','记录今天发生的三件好事','给一个好久没联系的人发消息',
+    '整理一个拖延了超过一周的小事','今天走一条平时不走的路','学一个没用的冷知识然后讲给别人听',
+  ],
+  love:[
+    '给一个人发"今天天气真好"','真诚地夸赞一位异性','换一个头像',
+    '发一条仅TA可见的朋友圈','写一句情诗（不少于10个字）','整理一下自己的社交资料',
+  ],
+  career:[
+    '整理一个拖延了一周的文件','主动在群里分享一个有用信息','清理电脑桌面（物理&数字）',
+    '学一个快捷键或效率技巧','列一个明日TODO清单','帮一个同事解决小问题',
+  ],
+  wealth:[
+    '记下今天花的每一分钱','取消一个不需要的订阅','把一笔零钱转入储蓄',
+    '盘点一下最近的支出','找一个比价更便宜的同款','今天忍住不买一个想买的东西',
+  ],
+  health:[
+    '站起来做10个深蹲','喝满8杯水','今天11点前放下手机',
+    '走楼梯不坐电梯','做一个1分钟的平板支撑','今天吃一份蔬菜/水果',
+  ],
+};
+
+function getWeather(s){
+  if(s>=80)return{icon:'☀️',text:'晴空万里',c:'#f5af19'};
+  if(s>=60)return{icon:'🌤️',text:'阳光正好',c:'#f5af19'};
+  if(s>=40)return{icon:'⛅',text:'阴晴不定',c:'#a0a0a0'};
+  if(s>=20)return{icon:'🌧️',text:'小雨淅沥',c:'#7ba7c9'};
+  return {icon:'⛈️',text:'雷暴预警',c:'#e74c3c'};
+}
+
+// Card collection rarity system
+function getRarity(score){
+  if(score>=90)return {name:'SSR',color:'#f5af19',bg:'rgba(245,175,25,.12)',border:'rgba(245,175,25,.4)',glow:'0 0 24px rgba(245,175,25,.35)',icon:'👑'};
+  if(score>=75)return {name:'SR',color:'#c084fc',bg:'rgba(192,132,252,.12)',border:'rgba(192,132,252,.4)',glow:'0 0 16px rgba(192,132,252,.25)',icon:'💎'};
+  if(score>=55)return {name:'R',color:'#60a5fa',bg:'rgba(96,165,250,.1)',border:'rgba(96,165,250,.3)',glow:'0 0 10px rgba(96,165,250,.15)',icon:'⭐'};
+  return {name:'N',color:'#9ca3af',bg:'rgba(156,163,175,.08)',border:'rgba(156,163,175,.2)',glow:'none',icon:'📋'};
+}
+
+function saveCard(){
+  const cards=LS.get('cards',[]);
+  const today=getDayKey(new Date());
+  const exists=cards.findIndex(c=>c.date===today);
+  const rarity=getRarity(currentScore);
+  const lc=document.getElementById('luckyChar').textContent;
+  const card={
+    date:today,score:currentScore,rarity:rarity.name,
+    fortune:currentFortuneText.slice(0,30),
+    icon:poisonMode?'💀':FORTUNE_DATA[currentCat].icon,
+    char:lc||'?',
+    cat:currentCat,poison:poisonMode
+  };
+  if(exists>=0)cards[exists]=card;else cards.push(card);
+  LS.set('cards',cards);
+  return {card,rarity,isNew:exists<0};
+}
+
+function getCollectionStats(){
+  const cards=LS.get('cards',[]);
+  const ssr=cards.filter(c=>c.rarity==='SSR').length;
+  const sr=cards.filter(c=>c.rarity==='SR').length;
+  return {total:cards.length,ssr,sr,cards};
+}
+
 // ═══════════════════════════════════════
 // SEEDED RNG
 // ═══════════════════════════════════════
@@ -514,6 +781,7 @@ function zodiacSeed(){
 // STATE
 // ═══════════════════════════════════════
 let currentCat='general';
+let poisonMode=false;
 let currentScore=73;
 let currentFortuneText='';
 let currentFortuneReason='';
@@ -535,19 +803,19 @@ function getDayKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padSta
 // RENDER: FORTUNE TAB
 // ═══════════════════════════════════════
 function renderFortune(animateMetrics=true){
-  const seed=todaySeed()+zodiacSeed()*100+CATEGORIES.indexOf(currentCat)*10000;
-  const r=seedRand(seed);
-  const data=FORTUNE_DATA[currentCat];
-  const f=pick(r,data.fortunes);
-  const score=55+Math.floor(r()*41);
+  const baseData=FORTUNE_DATA[currentCat];
+  const f=poisonMode
+    ? POISON_DATA[currentCat][Math.floor(Math.random()*POISON_DATA[currentCat].length)]
+    : baseData.fortunes[Math.floor(Math.random()*baseData.fortunes.length)];
+  const score=poisonMode?15+Math.floor(Math.random()*35):55+Math.floor(Math.random()*41);
   const color=COLORS[Math.floor(Math.random()*COLORS.length)];
-  const dir=pick(r,DIRS);
+  const dir=DIRS[Math.floor(Math.random()*DIRS.length)];
   const nums=genNums();
-  const metrics=genMetrics(r);
+  const metrics=genMetrics();
   const customDo=LS.get('customDo','').split(/[,，]/).filter(Boolean);
   const customDont=LS.get('customDont','').split(/[,，]/).filter(Boolean);
-  const allDo=[...data.dos,...customDo];
-  const allDont=[...data.donts,...customDont];
+  const allDo=[...baseData.dos,...customDo];
+  const allDont=[...baseData.donts,...customDont];
   const dos=[...allDo].sort(()=>Math.random()-.5).slice(0,2);
   const donts=[...allDont].sort(()=>Math.random()-.5).slice(0,2);
 
@@ -557,13 +825,44 @@ function renderFortune(animateMetrics=true){
   currentDo=dos.join(' · ');
   currentDont=donts.join(' · ');
 
+  // Persona
+  const persona=PERSONAS[Math.floor(Math.random()*PERSONAS.length)];
+  const pTag=document.getElementById('personaTag');
+  pTag.textContent=`${persona.icon} 今日人设：${persona.name} — ${persona.desc}`;
+  pTag.className='persona'+(poisonMode?' poison-mode':'');
+
   document.getElementById('catRow').innerHTML=CATEGORIES.map(c=>{
     const d=FORTUNE_DATA[c];
     return `<button class="cat-btn${c===currentCat?' active':''}" onclick="switchCat('${c}')">${d.icon} ${d.name}</button>`;
   }).join('');
-  document.getElementById('fortuneIcon').textContent=data.icon;
+  const icon=poisonMode?'💀':baseData.icon;
+  document.getElementById('fortuneIcon').textContent=icon;
   document.getElementById('fortuneText').textContent=f[0];
-  document.getElementById('fortuneReason').textContent='📐 '+f[1];
+  document.getElementById('fortuneReason').textContent=(poisonMode?'🥶 ':'📐 ')+f[1];
+
+  // Roast quote
+  const roast=poisonMode?'你不开心？那就对了，这是毒鸡汤模式 💀':ROASTS[Math.floor(Math.random()*ROASTS.length)];
+  document.getElementById('roastQuote').textContent='💬 '+roast;
+
+  // Weather
+  const w=getWeather(score);
+  const wTag=document.getElementById('weatherTag');
+  wTag.innerHTML=`${w.icon} 心情天气：<span style="color:${w.c}">${w.text}</span>`;
+
+  // Save card & show rarity
+  const {card,rarity,isNew}=saveCard();
+  const badge=document.getElementById('rarityBadge');
+  badge.textContent=`${rarity.icon} ${rarity.name}`;
+  badge.style.cssText=`color:${rarity.color};background:${rarity.bg};border:1px solid ${rarity.border};box-shadow:${rarity.glow}`;
+  badge.className='card-rarity-badge';
+  requestAnimationFrame(()=>badge.classList.add('show'));
+  if(isNew&&rarity.name==='SSR')toast('🎉 恭喜获得 SSR 卡牌！');
+
+  // Lucky char
+  const lc=LUCKY_CHARS[Math.floor(Math.random()*LUCKY_CHARS.length)];
+  document.getElementById('luckyChar').textContent=lc[0];
+  document.getElementById('luckyCharMean').textContent=lc[1];
+
   const ring=document.getElementById('scoreRing');
   ring.style.setProperty('--s',score+'%');
   document.getElementById('scoreNum').textContent=score;
@@ -575,6 +874,16 @@ function renderFortune(animateMetrics=true){
   document.getElementById('luckyDir').textContent=dir;
   document.getElementById('doText').textContent=dos.join(' · ');
   document.getElementById('dontText').textContent=donts.join(' · ');
+
+  // Challenge
+  const challenges=CHALLENGES[currentCat]||CHALLENGES.general;
+  const challenge=challenges[Math.floor(Math.random()*challenges.length)];
+  document.getElementById('challengeText').textContent=challenge;
+  const doneToday=LS.get('challengeDone','')===getDayKey(new Date());
+  const doneBtn=document.getElementById('challengeDone');
+  doneBtn.textContent=doneToday?'✅ 已完成':'✅ 完成';
+  doneBtn.className='challenge-done'+(doneToday?' done':'');
+
   document.getElementById('mGrid').innerHTML=metrics.map(m=>`
     <div class="m-item"><div class="ml">${m[0]} ${m[1]}%</div>
     <div class="mb"><div class="mf mf-${m[2]}" style="width:${animateMetrics?0:m[1]}%"></div></div></div>
@@ -601,14 +910,14 @@ function genNums(){
   const reds=new Set();while(reds.size<5)reds.add(Math.floor(Math.random()*35)+1);
   return{reds:[...reds].sort((a,b)=>a-b),blues:[Math.floor(Math.random()*12)+1,Math.floor(Math.random()*12)+1]};
 }
-function genMetrics(r){
+function genMetrics(){
   return[
-    ['运势能量值',50+Math.floor(r()*45),'a'],
-    ['幸运粒子浓度',20+Math.floor(r()*70),'b'],
-    ['宇宙射线干扰',5+Math.floor(r()*40),'c'],
-    ['水逆影响系数',5+Math.floor(r()*50),'c'],
-    ['墨菲定律强度',10+Math.floor(r()*50),'b'],
-    ['今日觉醒概率',30+Math.floor(r()*55),'a'],
+    ['运势能量值',50+Math.floor(Math.random()*45),'a'],
+    ['幸运粒子浓度',20+Math.floor(Math.random()*70),'b'],
+    ['宇宙射线干扰',5+Math.floor(Math.random()*40),'c'],
+    ['水逆影响系数',5+Math.floor(Math.random()*50),'c'],
+    ['墨菲定律强度',10+Math.floor(Math.random()*50),'b'],
+    ['今日觉醒概率',30+Math.floor(Math.random()*55),'a'],
   ];
 }
 
@@ -739,6 +1048,27 @@ function renderProfile(){
     :history.slice(-7).reverse().map(h=>`
       <div class="history-item"><span>${h.date}</span><span>${h.catIcon} ${h.score}分 · ${h.text.slice(0,18)}...</span></div>
     `).join('');
+
+  // Card collection
+  const stats=getCollectionStats();
+  document.getElementById('collectionStats').innerHTML=`
+    <div class="cstat">📦 收集 <b>${stats.total}</b> 张</div>
+    <div class="cstat">👑 SSR <b>${stats.ssr}</b></div>
+    <div class="cstat">💎 SR <b>${stats.sr}</b></div>
+  `;
+  const gallery=document.getElementById('cardGallery');
+  if(stats.cards.length===0){
+    gallery.innerHTML='<div class="gallery-card-tip">🎴 每天抽签即可收集运势卡牌<br>收集SSR卡牌的概率仅10%!</div>';
+  }else{
+    gallery.innerHTML=stats.cards.slice(-30).reverse().map(c=>{
+      const r=getRarity(c.score);
+      return `<div class="gallery-card" style="background:${r.bg};border:1px solid ${r.border}" title="${c.date} · ${c.score}分 · ${c.rarity}">
+        <span class="gc-icon">${c.icon}</span>
+        <span class="gc-rarity" style="color:${r.color}">${c.rarity}</span>
+        <span class="gc-day">${c.date.slice(5)}</span>
+      </div>`;
+    }).join('');
+  }
 
   // Custom DD
   document.getElementById('customDo').value=LS.get('customDo','');
@@ -968,14 +1298,71 @@ document.getElementById('btnSaveProfile').addEventListener('click',()=>{
   toast('设置已保存 ✅');
   renderFortune(true);
 });
+// Ask question
+document.getElementById('askInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&this.value.trim()){
+    const q=this.value.trim();
+    document.getElementById('askAnswer').textContent='🔮 正在连接宇宙数据库...';
+    SFX.shake();
+    // Trigger draw
+    currentCat=CATEGORIES[Math.floor(Math.random()*CATEGORIES.length)];
+    setTimeout(()=>{
+      drawWithAnimation();
+      document.getElementById('askAnswer').textContent=`🌌 针对「${q.slice(0,30)}${q.length>30?'...':''}」，宇宙的回答如下：`;
+    },600);
+  }
+});
+
+// Challenge done
+document.getElementById('challengeDone').addEventListener('click',function(){
+  if(this.classList.contains('done'))return;
+  this.textContent='✅ 已完成';this.classList.add('done');
+  LS.set('challengeDone',getDayKey(new Date()));
+  toast('🎯 挑战完成！今天又进步了一点');
+});
+
+// Accuracy vote
+document.querySelectorAll('.vote-btn').forEach(b=>b.addEventListener('click',function(){
+  const vote=this.dataset.vote;
+  const today=getDayKey(new Date());
+  const votes=LS.get('votes',{});
+  votes[today]=vote;
+  LS.set('votes',votes);
+  updateVoteUI(vote);
+}));
+
+function updateVoteUI(vote){
+  const btns=document.querySelectorAll('.vote-btn');
+  btns.forEach(b=>{
+    b.classList.toggle('voted',b.dataset.vote===vote||b.dataset.vote===LS.get('votes',{})[getDayKey(new Date())]);
+  });
+  const allVotes=Object.values(LS.get('votes',{}));
+  const up=allVotes.filter(v=>v==='up').length;
+  const down=allVotes.filter(v=>v==='down').length;
+  document.getElementById('voteStats').textContent=`历史准确率：${allVotes.length?Math.round(up/allVotes.length*100):0}%`;
+}
+
+document.getElementById('poisonToggle').addEventListener('click',()=>{
+  poisonMode=!poisonMode;
+  const btn=document.getElementById('poisonToggle');
+  btn.textContent=poisonMode?'💀 毒鸡汤 ON':'💀 毒鸡汤';
+  btn.classList.toggle('active',poisonMode);
+  LS.set('poisonMode',poisonMode);
+  renderFortune(true);
+});
 
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
 SFX.init();
 document.getElementById('soundToggle').textContent=SFX.enabled?'🔊':'🔇';
+// Restore poison mode
+poisonMode=LS.get('poisonMode',false);
+const pBtn=document.getElementById('poisonToggle');
+if(poisonMode){pBtn.textContent='💀 毒鸡汤 ON';pBtn.classList.add('active')}
 resetTarot();
 renderFortune(true);
+updateVoteUI();
 const todayKey=getDayKey(new Date());
 const lastVisit=LS.get('lastVisit','');
 if(lastVisit!==todayKey){LS.set('lastVisit',todayKey)}
