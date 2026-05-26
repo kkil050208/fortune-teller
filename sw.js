@@ -1,8 +1,6 @@
-const CACHE = 'fortune-teller-v2';
-const ASSETS = ['./', './index.html', './manifest.json'];
+const CACHE = 'fortune-teller-v3';
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
   self.skipWaiting();
 });
 
@@ -12,13 +10,24 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).then(resp => {
-      if (resp.ok) {
+  // Network-first for HTML, cache-first for others
+  if (e.request.destination === 'document' || e.request.url.endsWith('/')) {
+    e.respondWith(
+      fetch(e.request).then(resp => {
         const clone = resp.clone();
         caches.open(CACHE).then(c => c.put(e.request, clone));
-      }
-      return resp;
-    }))
-  );
+        return resp;
+      }).catch(() => caches.match(e.request))
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(cached => cached || fetch(e.request).then(resp => {
+        if (resp.ok) {
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return resp;
+      }))
+    );
+  }
 });
